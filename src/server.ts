@@ -11,7 +11,7 @@ export const startServer = async () => {
       ? process.env.PORT_TEST
       : process.env.PORT_DEV,
     () => {
-      console.log('Server is running on localhost:3333!');
+      console.log(`Server is running on localhost:${process.env.PORT_DEV}!`);
     }
   );
 
