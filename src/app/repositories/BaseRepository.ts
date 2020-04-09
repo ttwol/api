@@ -12,8 +12,9 @@ abstract class BaseRepository<T> {
     return await repository.save(item);
   }
 
-  async update(id: string, item: T): Promise<T> {
+  async update(item: T): Promise<T> {
     const repository = this.createRepository();
+    const id = repository.getId(item);
     await repository.update(id, item);
     return await repository.findOneOrFail(id);
   }

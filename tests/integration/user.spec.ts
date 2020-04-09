@@ -34,7 +34,7 @@ describe('User Tests', () => {
       .set('Authorization', `Bearer ${token}`)
       .send({
         username: 'rodolfo.teobaldo2@gmail.com',
-        password: 'rod123!@#',
+        password: '123',
         role: 'ADMIN',
       });
     expect(responseUser.status).toBe(201);
@@ -72,6 +72,41 @@ describe('User Tests', () => {
     expect(responseUser.status).toBe(200);
     const userExpected = <User>responseUser.body;
     expect(userExpected.id).toBe(user.id);
+  });
+
+  test('should update password success', async () => {
+    const responseUser = await request(app)
+      .put('/users')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        oldPassword: 'admin',
+        newPassword: 'admin',
+      });
+    expect(responseUser.status).toBe(200);
+    const userUpdated = responseUser.body;
+    expect(userUpdated.username).toBe(username);
+  });
+
+  test('should return error when old password not provided', async () => {
+    const responseUser = await request(app)
+      .put('/users')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        oldPassword: '',
+        newPassword: 'admin',
+      });
+    expect(responseUser.status).toBe(400);
+  });
+
+  test('should return error when old password is incorrect', async () => {
+    const responseUser = await request(app)
+      .put('/users')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        oldPassword: 'admin2',
+        newPassword: 'admin',
+      });
+    expect(responseUser.status).toBe(401);
   });
 
   test('should delete user success', async () => {

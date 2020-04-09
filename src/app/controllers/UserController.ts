@@ -48,6 +48,28 @@ class UserController {
 
     res.status(204).send();
   }
+
+  async update(req: Request, res: Response) {
+    const id = res.locals.userId;
+
+    const { oldPassword, newPassword } = req.body;
+    if (!(oldPassword && newPassword)) {
+      res.status(400).send();
+      return;
+    }
+
+    const user = await UserRepository.findOne(id);
+    if (!user.checkPasswordIsValid(oldPassword)) {
+      res.status(401).send();
+      return;
+    }
+
+    user.password = newPassword;
+    user.hashPassword();
+    var userUpdated = await UserRepository.update(user);
+
+    res.status(200).json(userUpdated);
+  }
 }
 
 export default new UserController();
