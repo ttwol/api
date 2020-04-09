@@ -1,0 +1,36 @@
+[
+   {
+      "name": "development",
+      "type": "sqlite",
+      "database": "src/database/db.sqlite",
+      "logging": false,
+      "entities": [
+         "src/app/models/*.ts"
+      ],
+      "migrations": [
+         "src/database/migration/*.ts"
+      ],
+      "cli": {
+         "entitiesDir": "src/app/models",
+         "migrationsDir": "src/database/migration"
+      }
+   },
+   {
+      "name": "test",
+      "type": "sqlite",
+      "database": "src/database/db.test.sqlite",
+      "synchronize": true,
+      "logging": false,
+      "dropschema": true,
+      "entities": [
+         "src/app/models/*.ts"
+      ],
+      "migrations": [
+         "src/database/migration/*.ts"
+      ],
+      "cli": {
+         "entitiesDir": "src/app/models",
+         "migrationsDir": "src/database/migration"
+      }
+   }
+]
