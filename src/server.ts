@@ -6,16 +6,11 @@ import { connection } from './database/connection';
 
 export const startServer = async () => {
   await connection();
-  const application = app.listen(
-    process.env.NODE_ENV === 'test'
-      ? process.env.PORT_TEST
-      : process.env.PORT_DEV,
-    () => {
-      console.log(`Server is running on localhost:${process.env.PORT_DEV}!`);
-    }
-  );
+  const port = process.env.PORT || 8080;
 
-  return application;
+  app.listen(port, () => {
+    console.log(`Server is running on localhost:${port}!`);
+  });
 };
 
 startServer();
