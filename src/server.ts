@@ -1,16 +1,25 @@
-import 'dotenv/config';
 import 'reflect-metadata';
+import { IServer } from 'recife';
+import { appConnection } from './database/appConnection';
 
-import app from './app';
-import { connection } from './database/connection';
+class Server implements IServer {
+  beforeStarted() {
+    appConnection();
+  }
 
-export const startServer = async () => {
-  await connection();
-  const port = process.env.PORT || 8080;
+  started() {  }
 
-  app.listen(port, () => {
-    console.log(`Server is running on localhost:${port}!`);
-  });
-};
+  beforeMounted() {  }
 
-startServer();
+  mounted() {  }
+
+  beforeUpdated() {  }
+
+  updated() {  }
+
+  catch(e: any) { 
+    console.log(e);
+   }
+}
+
+export default Server;
