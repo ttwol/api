@@ -1,13 +1,12 @@
-import jwt from 'jsonwebtoken';
-import authConfig from '../../../config/auth';
+import * as jwt from 'jsonwebtoken';
 import { ITokenProvider } from "../ITokenProvider";
+import { authConfig } from '../../config/auth';
 
 export class JwtTokenProvider implements ITokenProvider {
   
-  createToken(body: any): string {
-    console.log("entrou token");
-    return jwt.sign(body, authConfig.secret, {
-        expiresIn: authConfig.expiresIn
-      });
+  createToken(payload: any): string {
+    return jwt.sign(payload, authConfig.secret, {
+      expiresIn: authConfig.expiresIn
+    });
   }
 }

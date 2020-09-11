@@ -1,3 +1,3 @@
 export interface ITokenProvider {
-  createToken(body: any): string;
+  createToken(payload: any): string;
 }

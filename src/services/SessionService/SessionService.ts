@@ -17,7 +17,6 @@ export class SessionService {
 
   async login(loginInput: ISessionInput): Promise<Session> {
     let user = await this.userRepository.getByEmail(loginInput.email);
-    console.log("entrou");
     if (!user) {
       throw new ValidationError("Usuário ou senha inválidos");
     }
@@ -25,12 +24,8 @@ export class SessionService {
     if(!await this.checkPasswordIsValid(user, loginInput.password)) {
       throw new ValidationError("Usuário ou senha inválidos");
     }
-      
-    const token = this.tokenProvider.createToken({username: user.username});
-    console.log(token);
-    const se = new Session(token);
-    console.log(se);
-    return se;
+
+    return new Session(this.tokenProvider.createToken({ username: user.username }));
   }
 
   async checkPasswordIsValid({ password }: User, passwordUser: string): Promise<boolean> {
