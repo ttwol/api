@@ -6,7 +6,7 @@
       "host": "lallah.db.elephantsql.com",
       "port": 5432,
       "database": "bnxvrryx",
-      "logging": true,
+      "logging": false,
       "synchronize": true,
       "entities": [
          "dist/models/*.*"
